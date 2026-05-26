@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "788912015684",
+    "project_id": "projeto-app-brincante",
+    "storage_bucket": "projeto-app-brincante.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788912015684:android:53e6fdb071eeb62dc5af11",
+        "android_client_info": {
+          "package_name": "com.antigravity.brincante"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbm1LP_LoBpdyCjVXUJuZctlb8DYRN_PM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
