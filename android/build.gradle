@@ -1,12 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-// Se usar a sintaxe tradicional (Groovy)
-buildscript {
-    dependencies {
-        classpath 'com.google.gms:google-services:4.4.0' // Verifique a versão mais atual
-    }
-}
-
 buildscript {
     
     repositories {
@@ -29,6 +22,14 @@ allprojects {
         google()
         mavenCentral()
     }
+}
+
+plugins {
+  // ...
+
+  // Add the dependency for the Google services Gradle plugin
+  id 'com.google.gms.google-services' version '4.4.4' apply false
+
 }
 
 task clean(type: Delete) {
