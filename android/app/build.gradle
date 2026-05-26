@@ -1,5 +1,12 @@
 apply plugin: 'com.android.application'
 
+// Se usar a sintaxe tradicional (Groovy)
+buildscript {
+    dependencies {
+        classpath 'com.google.gms:google-services:4.4.0' // Verifique a versão mais atual
+    }
+}
+
 android {
     namespace = "com.antigravity.brincante"
     compileSdk = rootProject.ext.compileSdkVersion
