@@ -1,10 +1,17 @@
 apply plugin: 'com.android.application'
 
-// Se usar a sintaxe tradicional (Groovy)
-buildscript {
-    dependencies {
-        classpath 'com.google.gms:google-services:4.4.0' // Verifique a versão mais atual
-    }
+plugins {
+    id 'com.android.application'
+    id 'com.google.gms.google-services' // Linha necessária
+}
+
+dependencies {
+    // Importa a BOM do Firebase
+    implementation platform('com.google.firebase:firebase-bom:33.1.0')
+
+    // Adicione os produtos do Firebase que vai usar, ex:
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth'
 }
 
 android {
