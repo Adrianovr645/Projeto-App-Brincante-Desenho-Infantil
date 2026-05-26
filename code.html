@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>Meu Desenho - Kids Art App</title>
+<!-- Google Fonts: Quicksand for the playful kid-friendly look -->
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-dim": "#d8dae1",
+                    "on-secondary": "#ffffff",
+                    "on-primary-container": "#fdfcff",
+                    "on-error-container": "#93000a",
+                    "on-tertiary-container": "#f7fff2",
+                    "surface-container-highest": "#e1e2e9",
+                    "primary": "#005da7",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed-variant": "#554500",
+                    "secondary-fixed-dim": "#e8c426",
+                    "on-tertiary-fixed-variant": "#00531d",
+                    "error-container": "#ffdad6",
+                    "on-primary-fixed": "#001c39",
+                    "inverse-surface": "#2e3036",
+                    "surface": "#f8f9ff",
+                    "surface-container": "#ecedf5",
+                    "outline-variant": "#c1c7d3",
+                    "inverse-primary": "#a4c9ff",
+                    "error": "#ba1a1a",
+                    "tertiary-container": "#21863b",
+                    "on-secondary-fixed": "#221b00",
+                    "tertiary-fixed-dim": "#7bdb85",
+                    "surface-bright": "#f8f9ff",
+                    "inverse-on-surface": "#eff0f8",
+                    "on-surface-variant": "#414751",
+                    "tertiary": "#006b28",
+                    "primary-fixed-dim": "#a4c9ff",
+                    "primary-container": "#2976c7",
+                    "background": "#f8f9ff",
+                    "surface-container-high": "#e6e8ef",
+                    "on-tertiary": "#ffffff",
+                    "surface-container-low": "#f2f3fb",
+                    "on-secondary-container": "#715d00",
+                    "surface-container-lowest": "#ffffff",
+                    "on-surface": "#191c21",
+                    "on-tertiary-fixed": "#002107",
+                    "secondary-container": "#fdd73b",
+                    "primary-fixed": "#d4e3ff",
+                    "tertiary-fixed": "#96f89f",
+                    "on-background": "#191c21",
+                    "secondary": "#705d00",
+                    "surface-variant": "#e1e2e9",
+                    "surface-tint": "#0060ac",
+                    "outline": "#717783",
+                    "secondary-fixed": "#ffe173",
+                    "on-error": "#ffffff",
+                    "on-primary-fixed-variant": "#004883"
+            },
+            "borderRadius": {
+                    "DEFAULT": "1rem",
+                    "lg": "2rem",
+                    "xl": "3rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "gutter": "16px",
+                    "margin-mobile": "20px",
+                    "touch-target-min": "64px",
+                    "unit": "8px",
+                    "margin-desktop": "40px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Quicksand"],
+                    "label-lg": ["Quicksand"],
+                    "body-lg": ["Quicksand"],
+                    "headline-lg-mobile": ["Quicksand"],
+                    "headline-lg": ["Quicksand"]
+            },
+            "fontSize": {
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "body-lg": ["20px", {"lineHeight": "28px", "fontWeight": "500"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            overflow: hidden; /* Immersive art feel */
+            touch-action: none; /* Prevent scrolling while drawing */
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 600, 'GRAD' 0, 'opsz' 40;
+            font-size: 32px;
+        }
+        .chunky-button {
+            box-shadow: 0 6px 0 0 rgba(0,0,0,0.15);
+            transition: all 0.15s ease;
+        }
+        .chunky-button:active {
+            transform: translateY(4px);
+            box-shadow: 0 2px 0 0 rgba(0,0,0,0.15);
+        }
+        .canvas-area {
+            background-image: 
+                radial-gradient(#e1e2e9 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .brush-active {
+            transform: scale(1.1);
+            filter: brightness(1.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background h-screen w-full flex flex-col overflow-hidden">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-lowest w-full top-0 rounded-b-lg shadow-md z-50 flex justify-between items-center px-margin-mobile py-4 border-b-4 border-surface-dim">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="palette">palette</span>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Meu Desenho</h1>
+</div>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-lg text-label-lg chunky-button hover:scale-95 transition-transform active:scale-90 duration-150">
+            Salvar
+        </button>
+</header>
+<main class="flex flex-1 relative overflow-hidden">
+<!-- NavigationDrawer (Sidebar) -->
+<aside class="fixed left-0 top-0 h-full flex flex-col gap-unit p-unit z-40 bg-surface-container dark:bg-surface-container-high h-full w-touch-target-min rounded-r-lg shadow-xl translate-y-24 md:translate-y-20 lg:translate-y-24">
+<div class="flex flex-col items-center gap-6 py-6 h-full">
+<!-- Pincéis (Active State Example) -->
+<button class="flex flex-col items-center justify-center gap-1 w-16 h-20 bg-tertiary-container text-on-tertiary-container rounded-full scale-110 shadow-md transition-all duration-200">
+<span class="material-symbols-outlined" data-icon="brush">brush</span>
+<span class="font-label-lg text-[12px]">Pincéis</span>
+</button>
+<!-- Borracha -->
+<button class="flex flex-col items-center justify-center gap-1 w-14 h-14 text-on-surface-variant hover:bg-surface-bright rounded-full active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="ink_eraser">ink_eraser</span>
+<span class="font-label-lg text-[12px]">Borracha</span>
+</button>
+<!-- Adesivos -->
+<button class="flex flex-col items-center justify-center gap-1 w-14 h-14 text-on-surface-variant hover:bg-surface-bright rounded-full active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-label-lg text-[12px]">Adesivos</span>
+</button>
+<!-- Cores -->
+<button class="flex flex-col items-center justify-center gap-1 w-14 h-14 text-on-surface-variant hover:bg-surface-bright rounded-full active:scale-95 transition-transform duration-200">
+<span class="material-symbols-outlined" data-icon="palette">palette</span>
+<span class="font-label-lg text-[12px]">Cores</span>
+</button>
+</div>
+</aside>
+<!-- Drawing Canvas Area -->
+<section class="flex-1 canvas-area bg-white m-4 rounded-xl shadow-inner relative cursor-crosshair">
+<!-- Simulated drawing content for visual appeal -->
+<div class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-[300px]" data-icon="draw">draw</span>
+</div>
+<!-- Canvas Interaction Overlay -->
+<canvas class="w-full h-full rounded-xl" id="artCanvas"></canvas>
+<!-- Floating Color Palette (Micro-interaction) -->
+<div class="absolute bottom-6 right-6 flex flex-col gap-3 p-3 bg-white/80 backdrop-blur-md rounded-full shadow-lg border-2 border-surface-dim">
+<div class="w-10 h-10 rounded-full bg-red-500 border-4 border-white shadow-sm cursor-pointer hover:scale-125 transition-transform"></div>
+<div class="w-10 h-10 rounded-full bg-yellow-400 border-4 border-white shadow-sm cursor-pointer hover:scale-125 transition-transform"></div>
+<div class="w-10 h-10 rounded-full bg-blue-500 border-4 border-white shadow-sm cursor-pointer hover:scale-125 transition-transform scale-125 border-primary"></div>
+<div class="w-10 h-10 rounded-full bg-green-500 border-4 border-white shadow-sm cursor-pointer hover:scale-125 transition-transform"></div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-touch-target-min px-margin-mobile pb-safe bg-secondary-container dark:bg-secondary-container rounded-t-lg border-t-4 border-on-secondary-container shadow-lg">
+<!-- Limpar -->
+<button class="flex flex-col items-center text-on-secondary-container p-4 hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+<span class="font-label-lg-mobile text-label-lg-mobile">Limpar</span>
+</button>
+<!-- Desfazer (Active state simulation) -->
+<button class="flex flex-col items-center bg-on-secondary-container text-secondary-container rounded-xl px-8 py-3 p-4 hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="undo">undo</span>
+<span class="font-label-lg-mobile text-label-lg-mobile">Desfazer</span>
+</button>
+<!-- Galeria (Replacing cloud_upload per user's prompt request for 'Galeria') -->
+<button class="flex flex-col items-center text-on-secondary-container p-4 hover:brightness-110 active:scale-95 transition-all">
+<span class="material-symbols-outlined" data-icon="photo_library">photo_library</span>
+<span class="font-label-lg-mobile text-label-lg-mobile">Galeria</span>
+</button>
+</nav>
+<!-- Decorative Sparks/Feedback Elements -->
+<div class="fixed inset-0 pointer-events-none z-[100]" id="particle-container"></div>
+<script>
+        // Simple Canvas Drawing Logic
+        const canvas = document.getElementById('artCanvas');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        function resizeCanvas() {
+            canvas.width = canvas.parentElement.clientWidth;
+            canvas.height = canvas.parentElement.clientHeight;
+            ctx.lineCap = 'round';
+            ctx.lineWidth = 15;
+            ctx.strokeStyle = '#005da7'; // Primary blue
+        }
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        function startPosition(e) {
+            drawing = true;
+            draw(e);
+        }
+
+        function finishedPosition() {
+            drawing = false;
+            ctx.beginPath();
+        }
+
+        function draw(e) {
+            if (!drawing) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX || e.touches[0].clientX) - rect.left;
+            const y = (e.clientY || e.touches[0].clientY) - rect.top;
+
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+
+            // Create a small particle for "magic" effect
+            if (Math.random() > 0.8) createSpark(x + rect.left, y + rect.top);
+        }
+
+        canvas.addEventListener('mousedown', startPosition);
+        canvas.addEventListener('mouseup', finishedPosition);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('touchstart', startPosition);
+        canvas.addEventListener('touchend', finishedPosition);
+        canvas.addEventListener('touchmove', draw);
+
+        function createSpark(x, y) {
+            const container = document.getElementById('particle-container');
+            const spark = document.createElement('div');
+            spark.className = 'absolute w-4 h-4 text-secondary pointer-events-none';
+            spark.innerHTML = '<span class="material-symbols-outlined" style="font-size: 16px;">star</span>';
+            spark.style.left = x + 'px';
+            spark.style.top = y + 'px';
+            
+            const animation = spark.animate([
+                { transform: 'translate(0, 0) scale(1) rotate(0deg)', opacity: 1 },
+                { transform: `translate(${(Math.random()-0.5)*100}px, ${(Math.random()-0.5)*100}px) scale(0) rotate(360deg)`, opacity: 0 }
+            ], { duration: 800, easing: 'ease-out' });
+
+            container.appendChild(spark);
+            animation.onfinish = () => spark.remove();
+        }
+
+        // Handle "Limpar" button
+        document.querySelectorAll('button').forEach(btn => {
+            if(btn.innerText.includes('Limpar')) {
+                btn.onclick = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                }
+            }
+        });
+    </script>
+</body></html>

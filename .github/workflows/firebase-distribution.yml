@@ -1,0 +1,52 @@
+name: Android Build & Firebase App Distribution
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: # Permite rodar o workflow manualmente pelo GitHub
+
+jobs:
+  build-and-distribute:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📦 Checkout do código
+        uses: actions/checkout@v4
+
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📦 Instalar dependências
+        run: npm install
+
+      - name: 🏗️ Build Web App (Vite)
+        run: npm run build
+
+      - name: 🔌 Sincronizar Capacitor
+        run: |
+          npx cap copy android
+          npx cap update android
+
+      - name: ☕ Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: 🔨 Dar permissão ao Gradle
+        run: chmod +x ./android/gradlew
+
+      - name: 📱 Build APK (Android)
+        working-directory: ./android
+        run: ./gradlew assembleDebug
+
+      - name: 🚀 Upload para o Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{ secrets.FIREBASE_APP_ID }}
+          token: ${{ secrets.FIREBASE_TOKEN }}
+          groups: testers
+          file: android/app/build/outputs/apk/debug/app-debug.apk
